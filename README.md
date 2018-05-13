@@ -19,7 +19,7 @@ Harmony memory size is chosen as 30 and the solution size as 150. HMCR (Harmony 
 ![Loss](harmony/loss.png?raw=true)
 
 ## Genetic Algorithm
-Population size is chosen as 30 and the gene size as 150. Breeder count as 10. Mutation chance as 1%.
+Population size is chosen as 30 and the gene size as 150. Breeder count as 10. So the remaining 20 of the population is replaced with the children. Children are mutated with the chance of 1%.
 
 ### Convergence
 ![Convergence](genetic/out.gif?raw=true)
