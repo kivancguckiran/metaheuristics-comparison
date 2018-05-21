@@ -25,4 +25,4 @@ Population size is chosen as 30 and the gene size as 150. Breeder count as 10. S
 ![Convergence](genetic/solutions.gif?raw=true)
 
 ### Loss
-![Loss](genetic/loss.png?raw=true)
+![Loss](genetic/loss.gif?raw=true)
