@@ -2,68 +2,22 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.lines as lines
 
+import sys
+sys.path.insert(0, '../')
 
-mapX = 100
-mapY = 100
-maxIter = 100
-display = 1
-step = 2
-startingPoint = [0, 0]
-destinationPoint = [100, 100]
+from utils import Gym
 
-geneSize = 150
+
+gym = Gym(mapX = 100, mapY = 100, startPos = [0, 0], destPos = [100, 100], step = 2, color = 'r')
+
+maxIter = 500
+
+geneSize = 100
 populationSize = 30
 breederCount = 10
 mutationChance = 0.01
 
 population = np.random.random((populationSize, geneSize))
-
-def drawSolution(solution):
-    color = 'r'
-    newPosition = startingPoint[:]
-    lastPosition = startingPoint[:]
-
-    for dir in solution:
-        alpha = dir * 2 * np.pi
-
-        newPosition[0] += step * np.cos(alpha)
-        newPosition[1] += step * np.sin(alpha)
-
-        if newPosition[0] < 0:
-            newPosition[0] = 0
-        if newPosition[1] < 0:
-            newPosition[1] = 0
-        if newPosition[0] > mapX:
-            newPosition[0] = mapX
-        if newPosition[1] > mapY:
-            newPosition[1] = mapY
-
-        x = np.asarray([lastPosition[0], newPosition[0]])
-        y = np.asarray([lastPosition[1], newPosition[1]])
-
-        plt.plot(x, y, c=color)
-
-        lastPosition = newPosition[:]
-
-def checkFitness(solution):
-    pos = startingPoint[:]
-
-    for dir in solution:
-        alpha = dir * 2 * np.pi
-
-        pos[0] += step * np.cos(alpha)
-        pos[1] += step * np.sin(alpha)
-
-        if pos[0] < 0:
-            pos[0] = 0
-        if pos[1] < 0:
-            pos[1] = 0
-        if pos[0] > mapX:
-            pos[0] = mapX
-        if pos[1] > mapY:
-            pos[1] = mapY
-
-    return np.sqrt(np.square(destinationPoint[1] - pos[1]) + np.square(destinationPoint[0] - pos[0]))
 
 losses = []
 
@@ -71,7 +25,7 @@ for iter in np.arange(maxIter):
     fitnessScores = []
 
     for individual in population:
-        fitnessScores.append(checkFitness(individual))
+        fitnessScores.append(gym.checkSolution(individual))
 
     bestIndexes = np.asarray(fitnessScores).argsort()
     bestIndividual = population[bestIndexes[0]]
@@ -79,20 +33,12 @@ for iter in np.arange(maxIter):
     breederIndexes = bestIndexes[:breederCount]
     breederIndexes = np.reshape(breederIndexes, (int(breederCount / 2), 2))
 
-    if iter % display == 0:
-        print('Iteration ', iter)
-        print('Best ', bestIndividualScore)
+    print('Iteration ', iter)
+    print('Best ', bestIndividualScore)
 
-        losses.append(bestIndividualScore)
-        # draw best solution
-        plt.cla()
-        plt.axis([0, mapX + 1, 0, mapY + 1])
-
-        drawSolution(bestIndividual)
-
-        plt.savefig('images/iter_' + str(iter) + '.png')
-
-        plt.pause(0.1)
+    losses.append(bestIndividualScore)
+    # draw best solution
+    gym.drawSolution(bestIndividual, iter)
 
     newPopulation = []
 
@@ -120,9 +66,6 @@ for iter in np.arange(maxIter):
     np.random.shuffle(newPopulation)
 
     population = newPopulation
-
-
-plt.show()
 
 plt.cla()
 plt.plot(losses)
