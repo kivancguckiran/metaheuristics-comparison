@@ -58,6 +58,7 @@ class Gym:
         self.lossPlot.axis([0, self.iter + 1, 0, round(np.sqrt(self.mapX * self.mapX + self.mapY * self.mapY)) + 1])
 
         self.lossPlot.plot(self.losses, color='b')
+        self.lossPlot.text(90, 10, iter)
         self.lossFigure.savefig('losses/loss_' + str(iter) + '.png')
 
 
