@@ -13,16 +13,16 @@ The solution candidates are formed of steps. These parts define angles for movem
 Harmony memory size is chosen as 30 and the solution size as 150. HMCR (Harmony Memory Consideration Rate) as 99% and PAR (Pitch Adjust Rate) as 1%.
 
 ### Convergence
-![Convergence](harmony/out.gif?raw=true)
+![Convergence](harmony/solutions.gif?raw=true)
 
 ### Loss
-![Loss](harmony/loss.png?raw=true)
+![Loss](harmony/loss.gif?raw=true)
 
 ## Genetic Algorithm
 Population size is chosen as 30 and the gene size as 150. Breeder count as 10. So the remaining 20 of the population is replaced with the children. Children are mutated with the chance of 1%.
 
 ### Convergence
-![Convergence](genetic/out.gif?raw=true)
+![Convergence](genetic/solutions.gif?raw=true)
 
 ### Loss
 ![Loss](genetic/loss.png?raw=true)

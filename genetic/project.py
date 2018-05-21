@@ -8,9 +8,9 @@ sys.path.insert(0, '../')
 from utils import Gym
 
 
-gym = Gym(mapX = 100, mapY = 100, startPos = [0, 0], destPos = [100, 100], step = 2, color = 'r')
-
 maxIter = 500
+
+gym = Gym(mapX = 100, mapY = 100, startPos = [0, 0], destPos = [100, 100], step = 2, color = 'r', iter = maxIter)
 
 geneSize = 100
 populationSize = 30
@@ -18,8 +18,6 @@ breederCount = 10
 mutationChance = 0.01
 
 population = np.random.random((populationSize, geneSize))
-
-losses = []
 
 for iter in np.arange(maxIter):
     fitnessScores = []
@@ -33,12 +31,12 @@ for iter in np.arange(maxIter):
     breederIndexes = bestIndexes[:breederCount]
     breederIndexes = np.reshape(breederIndexes, (int(breederCount / 2), 2))
 
-    print('Iteration ', iter)
-    print('Best ', bestIndividualScore)
+    print('Iteration:', iter, ' - Loss: ',  bestIndividualScore)
 
-    losses.append(bestIndividualScore)
+    # draw best loss
+    gym.addLoss(iter, bestIndividualScore)
     # draw best solution
-    gym.drawSolution(bestIndividual, iter)
+    gym.drawSolution(iter, bestIndividual)
 
     newPopulation = []
 
@@ -67,7 +65,4 @@ for iter in np.arange(maxIter):
 
     population = newPopulation
 
-plt.cla()
-plt.plot(losses)
-plt.savefig('loss.png')
 

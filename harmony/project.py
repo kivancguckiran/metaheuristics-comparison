@@ -8,9 +8,9 @@ sys.path.insert(0, '../')
 from utils import Gym
 
 
-gym = Gym(mapX = 100, mapY = 100, startPos = [0, 0], destPos = [100, 100], step = 2, color = 'r')
-
 maxIter = 500
+
+gym = Gym(mapX = 100, mapY = 100, startPos = [0, 0], destPos = [100, 100], step = 2, color = 'r', iter = maxIter)
 
 bandwidth = 0.01
 solutionSize = 100
@@ -19,8 +19,6 @@ harmonyMemoryConsiderationRate = 0.99
 pitchAdjustRate = 0.01
 
 harmonyMemory = np.random.random((harmonyMemorySize, solutionSize))
-
-losses = []
 
 for iter in np.arange(maxIter):
     solutionScores = []
@@ -51,13 +49,10 @@ for iter in np.arange(maxIter):
 
     harmonyMemory[worstSolutionIdx] = harmonyMemory[bestSolutionIdx][:]
 
-    print('Iteration ', iter)
-    print('Best ', bestSolutionIdx, solutionScores[bestSolutionIdx])
+    print('Iteration:', iter, ' - Loss: ',  solutionScores[bestSolutionIdx])
 
-    losses.append(solutionScores[bestSolutionIdx])
+    # draw best loss
+    gym.addLoss(iter, solutionScores[bestSolutionIdx])
     # draw best solution
-    gym.drawSolution(harmonyMemory[bestSolutionIdx], iter)
+    gym.drawSolution(iter, harmonyMemory[bestSolutionIdx])
 
-plt.cla()
-plt.plot(losses)
-plt.savefig('loss.png')
