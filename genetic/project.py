@@ -13,7 +13,7 @@ maxIter = 500
 gym = Gym(mapX = 100, mapY = 100, startPos = [0, 0], destPos = [100, 100], step = 2, color = 'r', iter = maxIter)
 
 geneSize = 100
-populationSize = 30
+populationSize = 20
 breederCount = 10
 mutationChance = 0.01
 
