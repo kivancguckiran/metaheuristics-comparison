@@ -13,8 +13,9 @@ maxIter = 500
 gym = Gym(mapX = 100, mapY = 100, startPos = [0, 0], destPos = [100, 100], step = 2, color = 'r', iter = maxIter)
 
 geneSize = 100
-populationSize = 20
+populationSize = 30
 breederCount = 10
+luckyCount = 10
 mutationChance = 0.01
 
 population = np.random.random((populationSize, geneSize))
@@ -30,8 +31,10 @@ for iter in np.arange(maxIter):
     bestIndividualScore = fitnessScores[bestIndexes[0]]
     breederIndexes = bestIndexes[:breederCount]
     breederIndexes = np.reshape(breederIndexes, (int(breederCount / 2), 2))
+    luckyIndexes = bestIndexes[breederCount:breederCount + luckyCount]
 
     print('Iteration:', iter, ' - Loss: ',  bestIndividualScore)
+    print('pop count :', len(population))
 
     # draw best loss
     gym.addLoss(iter, bestIndividualScore)
@@ -60,6 +63,9 @@ for iter in np.arange(maxIter):
         newPopulation.append(mother)
         newPopulation.append(child1)
         newPopulation.append(child2)
+
+    for index in luckyIndexes:
+        newPopulation.append(population[index])
 
     np.random.shuffle(newPopulation)
 
