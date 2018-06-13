@@ -36,3 +36,13 @@ Population size is chosen as 30 and the solution size as 100. Differential const
 ### Loss
 ![Loss](differential/loss.gif?raw=true)
 
+## Artificial Bee Colony
+Worker bee count is selected as 20. Onlooker bee count is selected as 20. Scout limit as 50. Food source count is selected as 30 and the size 100.
+
+### Convergence
+![Convergence](abc/solutions.gif?raw=true)
+
+### Loss
+![Loss](abc/loss.gif?raw=true)
+
+
